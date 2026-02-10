@@ -41,19 +41,25 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
-        if (plugin.config().getNametagConfig().isEnabled()) {
-            Nametag nametag = nametagManager.get(event.getPlayer());
-            nametag.updateVisibilityForAll();
+        if (!plugin.config().getNametagConfig().isEnabled()) return;
+
+        Nametag nametag = nametagManager.get(event.getPlayer());
+        if (nametag == null) {
+            return;
         }
+        nametag.updateVisibilityForAll();
     }
 
     @EventHandler
     public void onPlayerWorldChange(PlayerChangedWorldEvent event) {
-        if (plugin.config().getNametagConfig().isEnabled()) {
-            Nametag nametag = nametagManager.get(event.getPlayer());
-            nametag.hideForAll();
-            nametag.updateVisibilityForAll();
+        if (!plugin.config().getNametagConfig().isEnabled()) return;
+
+        Nametag nametag = nametagManager.get(event.getPlayer());
+        if (nametag == null) {
+            return;
         }
+        nametag.hideForAll();
+        nametag.updateVisibilityForAll();
     }
 
     @EventHandler
