@@ -33,10 +33,13 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (plugin.config().getNametagConfig().isEnabled()) {
-            Nametag nametag = nametagManager.get(event.getPlayer());
-            nametag.hideForAll();
+        if (!plugin.config().getNametagConfig().isEnabled()) return;
+
+        Nametag nametag = nametagManager.get(event.getPlayer());
+        if (nametag == null) {
+            return;
         }
+        nametag.hideForAll();
     }
 
     @EventHandler
